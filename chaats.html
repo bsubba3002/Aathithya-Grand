@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>North Indian Chaats 🧂 | Aathithya Grand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #fff0f5, #ffffff);
+    }
+    header {
+      background: #c0392b;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 22px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .container {
+      padding: 20px;
+    }
+    .menu-item {
+      background: #fff;
+      margin: 12px 0;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-info {
+      flex-grow: 1;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #e74c3c;
+      color: white;
+    }
+    button:hover {
+      background-color: #c0392b;
+    }
+  </style>
+</head>
+<body>
+  <header>🧂 Aathithya Grand – North Indian Chaats</header>
+
+  <div class="container" id="menuContainer">
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Pani Puri</strong><br>₹40
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Pani Puri', 40)">Add ➕</button>
+        <button onclick="removeFromCart('Pani Puri')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Bhel Puri</strong><br>₹45
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Bhel Puri', 45)">Add ➕</button>
+        <button onclick="removeFromCart('Bhel Puri')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Sev Puri</strong><br>₹50
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Sev Puri', 50)">Add ➕</button>
+        <button onclick="removeFromCart('Sev Puri')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Dahi Puri</strong><br>₹55
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Dahi Puri', 55)">Add ➕</button>
+        <button onclick="removeFromCart('Dahi Puri')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Ragda Chaat</strong><br>₹60
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Ragda Chaat', 60)">Add ➕</button>
+        <button onclick="removeFromCart('Ragda Chaat')">Remove ➖</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function addToCart(item, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(i => i.name === item);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ name: item, price: price, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(item + " added to cart!");
+    }
+
+    function removeFromCart(item) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.map(i => {
+        if (i.name === item && i.quantity > 0) {
+          i.quantity--;
+        }
+        return i;
+      }).filter(i => i.quantity > 0);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(item + " removed from cart!");
+    }
+  </script>
+</body>
+</html>

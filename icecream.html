@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ice Creams 🍦 | Aathithya Grand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+    }
+    header {
+      background: #00acc1;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 22px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .container {
+      padding: 20px;
+    }
+    .menu-item {
+      background: #fff;
+      margin: 12px 0;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-info {
+      flex-grow: 1;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #00838f;
+      color: white;
+    }
+    button:hover {
+      background-color: #006064;
+    }
+  </style>
+</head>
+<body>
+  <header>🍦 Aathithya Grand – Ice Cream Delights</header>
+
+  <div class="container" id="menuContainer">
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Vanilla Cup</strong><br>₹40
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Vanilla Cup', 40)">Add ➕</button>
+        <button onclick="removeFromCart('Vanilla Cup')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Chocolate Sundae</strong><br>₹60
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Chocolate Sundae', 60)">Add ➕</button>
+        <button onclick="removeFromCart('Chocolate Sundae')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Strawberry Swirl</strong><br>₹50
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Strawberry Swirl', 50)">Add ➕</button>
+        <button onclick="removeFromCart('Strawberry Swirl')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Butterscotch Bowl</strong><br>₹55
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Butterscotch Bowl', 55)">Add ➕</button>
+        <button onclick="removeFromCart('Butterscotch Bowl')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Mango Delight</strong><br>₹65
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Mango Delight', 65)">Add ➕</button>
+        <button onclick="removeFromCart('Mango Delight')">Remove ➖</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function addToCart(item, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(i => i.name === item);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ name: item, price: price, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(item + " added to cart!");
+    }
+
+    function removeFromCart(item) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.map(i => {
+        if (i.name === item && i.quantity > 0) {
+          i.quantity--;
+        }
+        return i;
+      }).filter(i => i.quantity > 0);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(item + " removed from cart!");
+    }
+  </script>
+</body>
+</html>

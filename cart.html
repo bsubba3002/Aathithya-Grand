@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart 🛒 - Aathithya Grand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f3f0ff;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #6a0572;
+    }
+
+    .cart-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed #ccc;
+    }
+
+    .cart-item button {
+      background: #e53935;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .cart-item button:hover {
+      background: #c62828;
+    }
+
+    .total {
+      font-weight: bold;
+      font-size: 1.2em;
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #6a0572;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #8a2c90;
+    }
+
+    #qrCode {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    @media (max-width: 600px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .total {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Your Cart 🛒</h1>
+
+  <div class="cart-container" id="cartContainer">
+    <!-- Cart items will be dynamically added here -->
+  </div>
+
+  <div id="qrCode"></div>
+
+  <div class="actions">
+    <button onclick="clearCart()">Clear Cart ❌</button>
+    <button onclick="generateQR()">Generate QR 📱</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const container = document.getElementById('cartContainer');
+    let total = 0;
+
+    function renderCart() {
+      container.innerHTML = '';
+      total = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty 😢</p>";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'cart-item';
+        itemDiv.innerHTML = `
+          <div>${item.name} x ${item.quantity}</div>
+          <div>
+            ₹${itemTotal}
+            <button onclick="removeItem(${index})">Remove ❌</button>
+          </div>
+        `;
+        container.appendChild(itemDiv);
+      });
+
+      const totalDiv = document.createElement('div');
+      totalDiv.className = 'total';
+      totalDiv.innerText = `Total: ₹${total}`;
+      container.appendChild(totalDiv);
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function clearCart() {
+      localStorage.removeItem('cart');
+      cart = [];
+      renderCart();
+      alert('Cart cleared');
+    }
+
+    function generateQR() {
+      const qrDiv = document.getElementById('qrCode');
+      qrDiv.innerHTML = '';
+      const cartData = cart.map(item => `${item.name} x${item.quantity} = ₹${item.price * item.quantity}`).join('\n') + `\n\nTotal: ₹${total}`;
+
+      QRCode.toCanvas(document.createElement('canvas'), cartData, function (error, canvas) {
+        if (error) {
+          console.error(error);
+          alert('Failed to generate QR');
+        } else {
+          qrDiv.appendChild(canvas);
+        }
+      });
+    }
+
+    // Initial render
+    renderCart();
+  </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Breakfast 🍳 | Aathithya Grand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: linear-gradient(to right, #fff1e6, #ffffff);
+    }
+    header {
+      background: #ff914d;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 22px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .container {
+      padding: 20px;
+    }
+    .menu-item {
+      background: #fff;
+      margin: 12px 0;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .menu-info {
+      flex-grow: 1;
+    }
+    .buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    button {
+      padding: 6px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #ffa366;
+      color: white;
+    }
+    button:hover {
+      background-color: #ff7733;
+    }
+  </style>
+</head>
+<body>
+  <header>🍽️ Aathithya Grand – Breakfast Menu</header>
+
+  <div class="container" id="menuContainer">
+    <!-- Sample Items -->
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Masala Dosa</strong><br>₹50
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Masala Dosa', 50)">Add ➕</button>
+        <button onclick="removeFromCart('Masala Dosa')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Idli Vada</strong><br>₹40
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Idli Vada', 40)">Add ➕</button>
+        <button onclick="removeFromCart('Idli Vada')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Upma</strong><br>₹30
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Upma', 30)">Add ➕</button>
+        <button onclick="removeFromCart('Upma')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Poori Bhaji</strong><br>₹45
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Poori Bhaji', 45)">Add ➕</button>
+        <button onclick="removeFromCart('Poori Bhaji')">Remove ➖</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <div class="menu-info">
+        <strong>Set Dosa</strong><br>₹55
+      </div>
+      <div class="buttons">
+        <button onclick="addToCart('Set Dosa', 55)">Add ➕</button>
+        <button onclick="removeFromCart('Set Dosa')">Remove ➖</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function addToCart(item, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(i => i.name === item);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ name: item, price: price, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(item + " added to cart!");
+    }
+
+    function removeFromCart(item) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.map(i => {
+        if (i.name === item && i.quantity > 0) {
+          i.quantity--;
+        }
+        return i;
+      }).filter(i => i.quantity > 0);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(item + " removed from cart!");
+    }
+  </script>
+</body>
+</html>

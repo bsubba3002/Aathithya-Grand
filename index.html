@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aathithya Grand 🍽️ - Online Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffe6e6, #fff5e6);
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #6a0572;
+      padding: 10px 20px;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .navbar .menu-icon {
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      background: #ab83a1;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      width: 200px;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .navbar-menu a {
+      color: white;
+      padding: 15px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .navbar-menu a:last-child {
+      border-bottom: none;
+    }
+
+    .navbar-menu.show {
+      display: flex;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      color: #6a0572;
+      padding: 20px 10px;
+    }
+
+    .header h2 {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .header p {
+      font-size: 1rem;
+      margin: 5px 0 0;
+      font-style: italic;
+    }
+
+    /* Menu Cards */
+    .menu-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .menu-card {
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .menu-card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+
+    .menu-card h3 {
+      margin: 10px 0 0;
+      font-size: 1.2rem;
+    }
+
+    .menu-card span {
+      font-size: 2rem;
+    }
+
+    /* Responsive Fixes */
+    @media (max-width: 600px) {
+      .header h2 {
+        font-size: 1.5rem;
+      }
+      .navbar-menu {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>🍛 Aathithya Grand</h1>
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+  </div>
+
+  <!-- Navbar Links -->
+  <div class="navbar-menu" id="navMenu">
+    <a href="#home">Home 🏠</a>
+    <a href="#menu">Menu 📜</a>
+    <a href="cart.html">Cart 🛒</a>
+    <a href="#contact">Contact 📞</a>
+  </div>
+
+  <!-- Main Header -->
+  <div class="header" id="home">
+    <h2>Pure Veg 🌿 | Family Restaurant 👨‍👩‍👧‍👦</h2>
+    <p>Delicious food, delivered with love ❤️</p>
+  </div>
+
+  <!-- Menu Cards -->
+  <div class="menu-section" id="menu">
+    <div class="menu-card" onclick="location.href='beverages.html'">
+      <span>🥤</span>
+      <h3>Beverages</h3>
+    </div>
+    <div class="menu-card" onclick="location.href='breakfast.html'">
+      <span>🍳</span>
+      <h3>Breakfast</h3>
+    </div>
+    <div class="menu-card" onclick="location.href='lunch.html'">
+      <span>🍽️</span>
+      <h3>Lunch</h3>
+    </div>
+    <div class="menu-card" onclick="location.href='chaats.html'">
+      <span>🍢</span>
+      <h3>North Indian Chaats</h3>
+    </div>
+    <div class="menu-card" onclick="location.href='icecream.html'">
+      <span>🍨</span>
+      <h3>Ice Cream</h3>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navMenu').classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>

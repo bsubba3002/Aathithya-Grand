@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beverages 🥤 - Aathithya Grand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f0e6ff, #fff0f5);
+    }
+
+    .navbar {
+      background: #6a0572;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+
+    .menu-list {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .item-card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .item-card:hover {
+      transform: scale(1.05);
+    }
+
+    .item-card button {
+      padding: 5px 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #6a0572;
+      color: white;
+    }
+
+    .cart-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .cart-link a {
+      padding: 10px 20px;
+      background: #ab83a1;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 600px) {
+      .menu-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>Beverages Menu 🥤</h1>
+  </div>
+
+<div class="menu-list">
+  <div class="item-card">
+    <img src="images/filter-coffee.jpg" alt="Filter Coffee" style="width:100px; height:100px; border-radius:10px;">
+    <h3>Filter Coffee ☕</h3>
+    <p>₹15.00</p>
+    <button onclick="addToCart('Filter Coffee', 15)">Add</button>
+    <button onclick="removeFromCart('Filter Coffee')">Remove</button>
+  </div>
+
+  <div class="item-card">
+    <img src="images/tea.jpg" alt="Tea" style="width:100px; height:100px; border-radius:10px;">
+    <h3>Tea 🍵</h3>
+    <p>₹15.00</p>
+    <button onclick="addToCart('Tea', 15)">Add</button>
+    <button onclick="removeFromCart('Tea')">Remove</button>
+  </div>
+
+  <div class="item-card">
+    <img src="images/boost.jpg" alt="Boost" style="width:100px; height:100px; border-radius:10px;">
+    <h3>Boost 🧃</h3>
+    <p>₹25.00</p>
+    <button onclick="addToCart('Boost', 25)">Add</button>
+    <button onclick="removeFromCart('Boost')">Remove</button>
+  </div>
+
+  <div class="item-card">
+    <img src="images/horlicks.jpg" alt="Horlicks" style="width:100px; height:100px; border-radius:10px;">
+    <h3>Horlicks 🥛</h3>
+    <p>₹25.00</p>
+    <button onclick="addToCart('Horlicks', 25)">Add</button>
+    <button onclick="removeFromCart('Horlicks')">Remove</button>
+  </div>
+
+  <div class="item-card">
+    <img src="images/nescafe.jpg" alt="Nescafe" style="width:100px; height:100px; border-radius:10px;">
+    <h3>Nescafe ☕</h3>
+    <p>₹25.00</p>
+    <button onclick="addToCart('Nescafe', 25)">Add</button>
+    <button onclick="removeFromCart('Nescafe')">Remove</button>
+  </div>
+</div>
+
+  <div class="cart-link">
+    <a href="cart.html">Go to Cart 🛒</a>
+  </div>
+
+  <script>
+    function addToCart(item, price) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(i => i.name === item);
+
+      if (existingItem) {
+        existingItem.quantity += 1;
+      } else {
+        cart.push({ name: item, price: price, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(`${item} added to cart`);
+    }
+
+    function removeFromCart(item) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingItem = cart.find(i => i.name === item);
+
+      if (existingItem) {
+        existingItem.quantity -= 1;
+        if (existingItem.quantity <= 0) {
+          cart = cart.filter(i => i.name !== item);
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert(`${item} removed from cart`);
+      } else {
+        alert(`${item} is not in cart`);
+      }
+    }
+  </script>
+
+</body>
+</html>
